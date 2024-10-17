@@ -303,10 +303,7 @@ class GPTModel(L.LightningModule, io.IOMixin, io.ConnectorMixin, fn.FNMixin):
         return self.forward_step(batch)
 
     def get_inference_wrapper(self, inference_wrapper_config) -> torch.Tensor:
-        model_inference_wrapper = GPTInferenceWrapper(
-            self.module,
-            inference_wrapper_config
-        )
+        model_inference_wrapper = GPTInferenceWrapper(self.module, inference_wrapper_config)
         return model_inference_wrapper
 
     @property
@@ -322,8 +319,6 @@ class GPTModel(L.LightningModule, io.IOMixin, io.ConnectorMixin, fn.FNMixin):
             self._validation_loss_reduction = MaskedTokenLossReduction(validation_step=True)
 
         return self._validation_loss_reduction
-
-
 
 
 def get_batch_on_this_context_parallel_rank(batch) -> Dict[str, torch.Tensor]:

@@ -6,7 +6,9 @@ import torch
 import torch.distributed
 from megatron.core.inference.common_inference_params import CommonInferenceParams
 from megatron.core.inference.engines.mcore_engine import MCoreEngine
-from megatron.core.inference.model_inference_wrappers.abstract_model_inference_wrapper import AbstractModelInferenceWrapper
+from megatron.core.inference.model_inference_wrappers.abstract_model_inference_wrapper import (
+    AbstractModelInferenceWrapper,
+)
 from megatron.core.inference.model_inference_wrappers.inference_wrapper_config import InferenceWrapperConfig
 from megatron.core.inference.text_generation_controllers.simple_text_generation_controller import (
     SimpleTextGenerationController,
@@ -91,7 +93,9 @@ def generate(
     inference_params: Optional[CommonInferenceParams] = None,
 ) -> dict:
     if encoder_prompts is not None:
-        text_generation_controller = EncosderDecoderTextGenerationController(inference_wrapped_model=model, tokenizer=tokenizer)
+        text_generation_controller = EncosderDecoderTextGenerationController(
+            inference_wrapped_model=model, tokenizer=tokenizer
+        )
     else:
         text_generation_controller = SimpleTextGenerationController(inference_wrapped_model=model, tokenizer=tokenizer)
     mcore_engine = MCoreEngine(
